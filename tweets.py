@@ -19,9 +19,15 @@ for tweet in sntwitter.TwitterSearchScraper(query).get_items():
         tweets.append([tweet.user.username,tweet.content])
 
 df=pd.DataFrame(tweets, columns=['User','Tweet'])
+#remove special charecters
 
+df['Tweet'] = df['Tweet'].str.replace('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', ' ', regex=True)
+
+df['Tweet'] = df['Tweet'].str.replace('\W', ' ', regex=True)
 print(df)
 print("-------------Converting into xlsx file----------")
-df.to_csv(r'test.csv', index=False)
+df.to_csv(r'test6.csv', index=False)
+
+
 
 
